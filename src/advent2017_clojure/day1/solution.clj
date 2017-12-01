@@ -15,15 +15,14 @@
 
 
 (defn part1 []
-  (let [input (slurp "src/advent2017_clojure/day1/input.txt")
-        input-length (count input)]
+  (let [input (slurp "src/advent2017_clojure/day1/input.txt")]
     (->>
       input
       clojure.string/trim
       cycle
-      (take (inc input-length))
+      (take (inc (count input)))
       (partition 2 1)
-      (sum-equal-pairs)
+      sum-equal-pairs
       println)))
 
 
