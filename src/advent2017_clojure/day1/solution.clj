@@ -1,6 +1,11 @@
 (ns advent2017-clojure.day1.solution)
 
 
+(defn- load-input []
+  (clojure.string/trim
+    (slurp "src/advent2017_clojure/day1/input.txt")))
+
+
 (defn- sum-equal-pairs [vector]
   "Given a vector of pairs of chars, where the chars are ints
   (i.e. 0-9), returns the sum of the ints in pairs with
@@ -15,10 +20,9 @@
 
 
 (defn part1 []
-  (let [input (slurp "src/advent2017_clojure/day1/input.txt")]
+  (let [input (load-input)]
     (->>
       input
-      clojure.string/trim
       cycle
       (take (inc (count input)))
       (partition 2 1)
@@ -27,10 +31,7 @@
 
 
 (defn part2 []
-  (let [input-vector
-        (vec
-          (clojure.string/trim
-            (slurp "src/advent2017_clojure/day1/input.txt")))
+  (let [input-vector (vec (load-input))
         first-half-vector (subvec input-vector 0 (/ (count input-vector) 2))
         second-half-vector (subvec input-vector (/ (count input-vector) 2))
         first-cycle (map vector first-half-vector second-half-vector)
