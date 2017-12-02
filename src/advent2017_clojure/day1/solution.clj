@@ -12,18 +12,15 @@
   identical values."
   (->>
     vector
-    (map (fn [[fst snd]]
-           [(Character/digit fst 10)
-            (Character/digit snd 10)]))
     (filter (partial apply =))
-    (reduce (fn [acc [x]] (+ acc x)) 0)))
+    (map (fn [[x]] (Character/digit x 10)))
+    (reduce +)))
 
 
 (defn part1 []
   (let [input (load-input)]
     (->>
-      input
-      cycle
+      (cycle input)
       (take (inc (count input)))
       (partition 2 1)
       sum-equal-pairs
@@ -32,10 +29,11 @@
 
 (defn part2 []
   (let [input-vector (vec (load-input))
-        first-half-vector (subvec input-vector 0 (/ (count input-vector) 2))
-        second-half-vector (subvec input-vector (/ (count input-vector) 2))
-        first-cycle (map vector first-half-vector second-half-vector)
-        second-cycle (map vector second-half-vector first-half-vector)]
+        [first-half second-half] (split-at
+                                   (/ (count input-vector) 2)
+                                   input-vector)
+        first-cycle (map vector first-half second-half)
+        second-cycle (map vector second-half first-half)]
     (println
       (+
         (sum-equal-pairs first-cycle)
