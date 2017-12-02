@@ -31,6 +31,3 @@
     (map first)
     (apply +)
     println))
-
-
-l
