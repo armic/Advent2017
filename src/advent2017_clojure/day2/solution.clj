@@ -23,8 +23,14 @@
   (->>
     (load-input)
     (map
-      #(for [a % b % :when (not= a b)]
+      #(for [a % b %
+             :when (and
+                     (not= a b)
+                     (zero? (mod a b)))]
          (/ a b)))
-    (map (comp first (partial remove ratio?)))
+    (map first)
     (apply +)
     println))
+
+
+l
