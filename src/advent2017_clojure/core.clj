@@ -1,10 +1,10 @@
 (ns advent2017-clojure.core
   (:gen-class))
 
-(use 'advent2017-clojure.day4.solution)
+(use 'advent2017-clojure.day5.solution)
 
 (defn -main
   [& args]
-  (part2)
+  (part1)
   )
 
