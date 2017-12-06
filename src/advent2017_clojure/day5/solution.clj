@@ -27,7 +27,8 @@
 
 (defn part2 []
   (println
-    (loop [jump-list (load-input)
+    ; mutable vector for performance
+    (loop [jump-list (transient (load-input))
            pos 0
            steps 0]
       (if (or
@@ -36,9 +37,9 @@
         steps
         (let [curr-val (jump-list pos)]
           (recur
-            (update
+            (assoc!
               jump-list
               pos
-              (if (>= curr-val 3) dec inc))
+              (if (>= curr-val 3) (dec curr-val) (inc curr-val)))
             (+ pos curr-val)
             (inc steps)))))))
