@@ -11,13 +11,9 @@
 
 
 (defn- max-index [xs]
-  (loop [curr-ind 0
-         max-seen -1
-         max-ind -1]
-    (cond
-      (= curr-ind (count xs)) max-ind
-      (> (xs curr-ind) max-seen) (recur (inc curr-ind) (xs curr-ind) curr-ind)
-      :else (recur (inc curr-ind) max-seen max-ind))))
+  (let [xs (vec (rseq xs))]
+    (- (dec (count xs))
+       (apply max-key xs (range (count xs))))))
 
 
 (defn- next-index [xs ind]
