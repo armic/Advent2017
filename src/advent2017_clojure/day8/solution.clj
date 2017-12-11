@@ -5,7 +5,7 @@
     (clojure.string/trim
       (slurp "src/advent2017_clojure/day8/input.txt"))))
 
-(defn replace-symbols [instr]
+(defn- replace-symbols [instr]
   (replace {"inc" +
             "dec" -
             "=="  =
@@ -16,7 +16,7 @@
             ">"   >}
            (clojure.string/split instr #"\s")))
 
-(defn destructure-instr [instr]
+(defn- destructure-instr [instr]
   (let [i-vec (replace-symbols instr)]
     {:command          (i-vec 1)
      :command-register (keyword (i-vec 0))

@@ -21,7 +21,7 @@
       {})))
 
 
-(defn get-root [data]
+(defn- get-root [data]
   (->>
     (reduce (fn [[node-set neighbor-set] node]
               [(conj node-set node)
