@@ -52,10 +52,7 @@
   (let [sorted-neighbors (vec (sort-by #(:total-weight (data %)) neighbors))
         weight-set (set (map #(:total-weight (data %)) neighbors))]
     (cond
-      ;; if there is no problem node return nil
       (not= (count weight-set) 2) nil
-      ;; Else return problem node. Second node guaranteed to have
-      ;; normal weight since will be at least 3 neighbors on a broken node.
       (= (:total-weight (second sorted-neighbors))
          (:total-weight (first sorted-neighbors))) (last sorted-neighbors)
       :else (first sorted-neighbors))))
