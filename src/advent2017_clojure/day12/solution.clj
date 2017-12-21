@@ -19,10 +19,10 @@
 
 ;; We can also use dfs, although it is slower for this problem.
 #_(defn- dfs [node visited graph]
-  (reduce
-    #(clojure.set/union %1 (dfs %2 %1 graph))
-    (conj visited node)
-    (remove visited (graph node))))
+    (reduce
+      #(clojure.set/union %1 (dfs %2 %1 graph))
+      (conj visited node)
+      (remove visited (graph node))))
 
 (defn part1 []
   (->>

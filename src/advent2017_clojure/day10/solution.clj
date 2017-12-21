@@ -7,8 +7,8 @@
     (clojure.string/split #",")
     (->> (map #(Integer/parseInt %)))))
 
-(defn- load-input2 []
-  (as-> (slurp "src/advent2017_clojure/day10/input.txt") <>
+(defn- modify-hash-input [input]
+  (as-> input <>
         (clojure.string/trim <>)
         (mapv int <>)
         (conj <> 17 31 73 47 23)))
@@ -40,6 +40,22 @@
     state
     input))
 
+(defn knot-hash [input]
+  (->>
+    (let [input (modify-hash-input input)]
+      (reduce
+        (fn [state _] (process-input state input))
+        {:skip   0
+         :pos    0
+         :circle (vec (range 256))}
+        (range 64)))
+    :circle
+    (partition 16)
+    (map #(reduce bit-xor %))
+    (map #(format "%02x" %))
+    (clojure.string/join "")))
+
+
 (defn part1 []
   (->>
     (load-input)
@@ -52,17 +68,6 @@
     println))
 
 (defn part2 []
-  (->>
-    (let [input (load-input2)]
-      (reduce
-        (fn [state _] (process-input state input))
-        {:skip   0
-         :pos    0
-         :circle (vec (range 256))}
-        (range 64)))
-    :circle
-    (partition 16)
-    (map #(reduce bit-xor %))
-    (map #(format "%02x" %))
-    (clojure.string/join "")
-    println))
+  (println
+    (knot-hash
+      (slurp "src/advent2017_clojure/day10/input.txt"))))
